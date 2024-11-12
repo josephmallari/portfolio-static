@@ -265,7 +265,8 @@ h1 a {
     width: 100%;
   }
 
-  .project__header {
+  .project__header,
+  .side-projects__header {
     font-size: 40px;
   }
 }
@@ -282,9 +283,17 @@ h1 a {
   margin-bottom: 0;
 }
 
+.side-projects__header {
+  margin: 10px 0;
+}
+
 @media (min-width: 1024px) {
   body {
     margin: 20px;
+  }
+
+  .side-projects__header {
+    margin: 20px 0;
   }
 
   .projects__header {
