@@ -2,16 +2,8 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P42TC1KTY"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-9P42TC1KTY');
-    </script>
     <title>Joseph Mallari's Website</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta name="description" content="Joseph Mallari portfolio">
     <meta property="og:image" content="https://www.josephmallari.com/assets/chrome.webp" />
@@ -19,15 +11,18 @@
     <meta property="og:description" content="Portfolio of Joseph Mallari" />
     <meta property="og:url" content="https://josephmallari.com" />
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="preload" href="assets/fonts/Helvetica-Neu.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <main>
         <section class="logo">
-            <img src="assets/chrome.webp" class="logo-img" alt="Joseph Mallari logo" loading="lazy" />
+            <img src="assets/chrome.webp"
+                srcset="assets/chrome-640.webp 640w, assets/chrome-960.webp 960w, assets/chrome.webp 1280w"
+                sizes="(min-width: 1280px) 1280px, 100vw" class="logo-img"
+                alt="Joseph Mallari portfolio logo" width="1280" height="428" fetchpriority="high" />
         </section>
         <section class="intro">
             <h1>Hello, I'm Joseph. I'm a developer living in Berlin. I'm currently working at <a
@@ -65,8 +60,21 @@
             </span>
         </footer>
     </main>
-    <script src="projects.js"></script>
-    <script src="app.js"></script>
+    <script src="projects.js" defer></script>
+    <script src="app.js" defer></script>
+    <script>
+        window.addEventListener("load", function () {
+            var script = document.createElement("script");
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-9P42TC1KTY";
+            script.async = true;
+            document.head.appendChild(script);
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            window.gtag = gtag;
+            gtag("js", new Date());
+            gtag("config", "G-9P42TC1KTY");
+        });
+    </script>
 </body>
 
 </html>

@@ -20,7 +20,8 @@
 @font-face {
   font-family: "Helvetica-Neu";
   font-display: swap;
-  src: url("assets/fonts/Helvetica-Neu.ttf") format("truetype");
+  src: url("assets/fonts/Helvetica-Neu.woff2") format("woff2"),
+    url("assets/fonts/Helvetica-Neu.ttf") format("truetype");
 }
 
 /* Base Styles */

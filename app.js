@@ -7,7 +7,7 @@ function renderProjects() {
     const projectId = `project-${project.name.toLowerCase().replace(/\s+/g, '-')}`;
     const hasVideo = project.hasVideo;
     const videoClass = hasVideo ? '' : 'project--no-video';
-    
+
     // Build header content
     let headerContent = '';
     if (project.role) {
@@ -26,7 +26,10 @@ function renderProjects() {
       projectContent = `
         <div class="project__details">
           <div class="project__left">
-            <video src="${project.videoSrc}" preload="metadata" muted loop playsinline aria-label="${project.name} project demo"></video>
+            <video preload="none" muted playsinline loop autoplay aria-label="${project.name} project demo">
+              <source data-src="${project.webmSrc}" type="video/webm">
+              <source data-src="${project.videoSrc}" type="video/mp4">
+            </video>
           </div>
           <div class="project__right">
             ${headerContent}
@@ -52,8 +55,8 @@ function renderProjects() {
 
     return `
       <li>
-        <button class="project__text" 
-                aria-expanded="false" 
+        <button class="project__text"
+                aria-expanded="false"
                 aria-controls="${projectId}"
                 aria-label="Toggle ${project.name} project details">
           <span>${project.year}</span>${project.name}
@@ -66,17 +69,27 @@ function renderProjects() {
   }).join('');
 }
 
-// Handle project toggle with modern event delegation
+// Handle project toggle with modern event delegation, lazy-loading video sources on first open
 function initProjectToggles() {
   document.addEventListener('click', (e) => {
     const button = e.target.closest('.project__text');
     if (!button) return;
-    
+
     const project = button.nextElementSibling;
     if (!project || !project.classList.contains('project')) return;
-    
+
     const isExpanded = project.classList.toggle('project--show');
     button.setAttribute('aria-expanded', isExpanded);
+
+    const video = project.querySelector('video');
+    if (video && isExpanded && !video.dataset.loaded) {
+      video.querySelectorAll('source[data-src]').forEach((source) => {
+        source.src = source.dataset.src;
+      });
+      video.load();
+      video.play().catch(() => {});
+      video.dataset.loaded = 'true';
+    }
   });
 }
 
